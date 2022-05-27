@@ -200,7 +200,7 @@ get_header();
 				 //tøm visning: 
 				container.innerHTML = ""; 
 
-				Varer.forEach(vare => {
+				varer.forEach(vare => {
 					if (filterVare == "alle" || vare.categories.includes(parseInt(filterVare))) {
 						console.log(vare.categories);
 						let klon = temp.cloneNode(true).content;
