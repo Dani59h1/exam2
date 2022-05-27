@@ -9,10 +9,11 @@ get_header();
 <template>
 	<article class="grid-menu">
       	<img src="" alt="" />
-		  
+
       	<div class="info">
+			  <img src="" alt="">
 			<h3 class="title"></h3>
-			<p class="desc"></p>
+			<p class="pris"></p>
       </div>
     </article>
 </template>
@@ -105,6 +106,7 @@ get_header();
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main"></main><!-- #main -->
+		
 		<nav id="filter">
 
 			<button data-projekt="alle" class="selected">Alle</button>
@@ -163,11 +165,13 @@ get_header();
 				addEventListenerToSelector();
 			}
 
+			//Buttons
 			function addEventListenerToButtons() {
 				document.querySelectorAll("#filter button").forEach(element => {
 					element.addEventListener("click", filtrering)
 				})
 			}
+
 
 			function filtrering() {
 				filterVare = this.dataset.vare;
