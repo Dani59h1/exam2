@@ -175,8 +175,8 @@ get_header();
 
 			function filtrering() {
 				filterVare = this.dataset.vare;
-				document.querySelector(".selected").classList.remove("selected");
-     			this.classList.add("selected");
+				// document.querySelector(".selected").classList.remove("selected");
+     			// this.classList.add("selected");
 				// document.querySelector("select").value = "alle";
 				visVarer();
 				console.log(filterVare);
@@ -217,6 +217,7 @@ get_header();
 						// } else if (vare.categories.includes(8)) {
 						// 	klon.querySelector(".info").classList.add("Opbevaring");
 						// }
+						
 						
 						//Beskrivelse:
 						// klon.querySelector(".desc").textContent = vare.beskrivelse;
