@@ -162,7 +162,7 @@ get_header();
 				console.log(categories);
 				visVarer();
 				addEventListenerToButtons();
-				addEventListenerToSelector();
+				// addEventListenerToSelector();
 			}
 
 			//Buttons
