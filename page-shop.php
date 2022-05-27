@@ -158,8 +158,8 @@ get_header();
 				const catdata = await fetch(catUrl);
 				varer = await data.json();
 				categories = await catdata.json();
-				console.log(varer);
-				console.log(categories);
+				console.log(varer, "varer");
+				console.log(categories, "kategorier");
 				visVarer();
 				addEventListenerToButtons();
 				// addEventListenerToSelector();
@@ -179,7 +179,7 @@ get_header();
      			// this.classList.add("selected");
 				// document.querySelector("select").value = "alle";
 				visVarer();
-				console.log(filterVare);
+				console.log(filterVare, "filtrering");
 			}
 
 			// function addEventListenerToSelector() {
@@ -202,7 +202,7 @@ get_header();
 
 				varer.forEach(vare => {
 					if (filterVare == "alle" || vare.categories.includes(parseInt(filterVare))) {
-						console.log(vare.categories);
+						console.log(vare.categories, "visVarer");
 						let klon = temp.cloneNode(true).content;
 						klon.querySelector("img").src = vare.billede.guid;
 						klon.querySelector(".title").textContent = vare.overskrift;
