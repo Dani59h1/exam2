@@ -208,15 +208,15 @@ get_header();
 						klon.querySelector(".title").textContent = vare.overskrift;
 						klon.querySelector(".pris").textContent = vare.pris;
 
-						if (vare.categories.includes(9)) {
-							klon.querySelector(".info").classList.add("Glas");
-						} else if (vare.categories.includes(6)) {
-							klon.querySelector(".info").classList.add("Lamper");
-						} else if (vare.categories.includes(7)) {
-							klon.querySelector(".info").classList.add("Møbler");
-						} else if (vare.categories.includes(8)) {
-							klon.querySelector(".info").classList.add("Opbevaring");
-						}
+						// if (vare.categories.includes(9)) {
+						// 	klon.querySelector(".info").classList.add("Glas");
+						// } else if (vare.categories.includes(6)) {
+						// 	klon.querySelector(".info").classList.add("Lamper");
+						// } else if (vare.categories.includes(7)) {
+						// 	klon.querySelector(".info").classList.add("Møbler");
+						// } else if (vare.categories.includes(8)) {
+						// 	klon.querySelector(".info").classList.add("Opbevaring");
+						// }
 						
 						//Beskrivelse:
 						// klon.querySelector(".desc").textContent = vare.beskrivelse;
