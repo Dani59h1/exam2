@@ -77,7 +77,7 @@ get_header();
 		}
 	</style> -->
 
-	<div id="primary" class="content-area">
+	<Section id="primary" class="content-area">
 
 		<main id="main" class="site-main">
 			<article class="single">
@@ -100,22 +100,22 @@ get_header();
 
 
 		<script>
-			let vare;
+			let produkt;
 
 			const dbUrl = "https://nicknadeemkaastrup.dk/kea/2_semester_eksamen/wordpress/wp-json/wp/v2/vare"+<?php echo get_the_ID() ?>;
 
 			async function getJson() {
 				const data = await fetch(dbUrl);
-				vare = await data.json();
+				produkt = await data.json();
 				// console.log(vare)
-				visVarer();
+				visProdukter();
 			}
 
-			function visVarer() {
-				document.querySelector(".img").src = vare.billede.guid;
-				document.querySelector(".title h1").textContent = vare.overskrift;
-				document.querySelector(".beskrivelse").innerHTML = vare.beskrivelse;
-				document.querySelector(".pris").innerHTML = vare.pris;
+			function visProdukter() {
+				document.querySelector(".img").src = produkt.billede.guid;
+				document.querySelector(".title h1").textContent = produkt.overskrift;
+				document.querySelector(".beskrivelse").innerHTML = produkt.beskrivelse;
+				document.querySelector(".pris").innerHTML = produkt.pris;
 
 				// document.querySelector(".beskrivelse").innerHTML = `<b>beskrivelse</b> ${vare.beskrivelse}`
 				// document.querySelector(".uddannelse").innerHTML = `<b>Uddannelsestrin</b> ${vare.uddannelsestrin}`
@@ -135,7 +135,7 @@ get_header();
 			}
 			getJson();
 		</script>
-	</div><!-- #primary -->
+	</Section><!-- #primary -->
 
 <?php
 get_footer();

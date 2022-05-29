@@ -10,10 +10,11 @@ get_header();
 	<article class="grid-menu">
       	<img src="" alt="" />
 
-      	<div class="info">
+      	<div class="tekst">
 			  <img src="" alt="">
 			<h3 class="title"></h3>
 			<p class="pris"></p>
+			<p class="beskrivelse"></p>
       </div>
     </article>
 </template>
@@ -104,137 +105,84 @@ get_header();
 
 </style>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main"></main><!-- #main -->
-		
-		<nav id="filter">
-
-			<button data-projekt="alle" class="selected">Alle</button>
-			<button data-projekt="9">Glas</button>
+<section id ="primary" class="content-area">
+	<main id ="main" class="site-main">
+		<nav id="filtrering"><button data-produkt="alle">Alle</button>
+		<button data-projekt="9">Glas</button>
 			<button data-projekt="6">Lamper</button>
 			<button data-projekt="7">Møbler</button>
 			<button data-projekt="8">Opbevaring</button>
 		
+		<section id="produktcontainer">
+			</nav>
+			<section id="container"></section>
+</section>
+</main>
 
-			<!-- <select>
-				<option value="alle">Verdensmål</option>
-				<option value="7">1 - Afskaf fattigdom</option>
-				<option value="8">2 - Stop sult</option>
-				<option value="9">3 - Sundhed og trivsel</option>
-				<option value="10">4 - Kvalitetsuddannelse</option>
-				<option value="11">5 - Ligestilling mellem kønnene</option>
-				<option value="12">6 - Rent vand og sanitet</option>
-				<option value="13">7 - Bæredygtig energi</option>
-				<option value="14">8 - Anstændige jobs og økonomisk vækst</option>
-				<option value="15">9 - Industri innovation og infrastruktur</option>
-				<option value="16">10 - Mindre ulighed</option>
-				<option value="17">11 - Bæredygtige byer og lokalsamfund</option>
-				<option value="18">12 - Ansvarligt forbrug og produktion</option>
-				<option value="19">13 - Klimaindsats</option>
-				<option value="20">14 - Livet i havet</option>
-				<option value="21">15 - Livet på land</option>
-				<option value="22">16 - Fred retfærdighed og stærke institutioner</option>
-				<option value="23">17 - Partnerskaber for handling</option>
-			</select> -->
-
-		</nav>
-		<section id="container"></section>
-		
-
-<!-----------------------SCRIPT------------------------------------>
-
-
-		<script>
-			let varer;
+<script>
+let produkter;
 			let categories;
-			let filterVare = "alle";
-			const select = document.querySelector("#filter select");
+			let filterProdukt = "alle";
 
 			const dbUrl = "https://nicknadeemkaastrup.dk/kea/2_semester_eksamen/wordpress/wp-json/wp/v2/vare?per_page=100";
 			const catUrl = "https://nicknadeemkaastrup.dk/kea/2_semester_eksamen/wordpress/wp-json/wp/v2/categories";
 
-			async function getJson() {
-				const data = await fetch(dbUrl);
-				const catdata = await fetch(catUrl);
-				varer = await data.json();
-				categories = await catdata.json();
-				console.log(varer, "varer");
-				console.log(categories, "kategorier");
-				visVarer();
-				addEventListenerToButtons();
-				// addEventListenerToSelector();
-			}
+async function getJson (){
+	const data = await fetch(dbUrl);
+	const catdata = await fetch(catUrl);
+	produkter = await data.json();
+	categories = await catdata.json();
+	visProdukter();
+	opretknapper();
+}
 
-			//Buttons
-			function addEventListenerToButtons() {
-				document.querySelectorAll("#filter button").forEach(element => {
-					element.addEventListener("click", filtrering)
-				})
-			}
+function opretknapper (){
+	categories.forEach(cat =>{
+		document.querySelector("#filtrering").innerHTML += '<button class="filter" data-produkt="${cat.id}">${cat.name}</button>'
+	})
+
+	addEventListenersToButtons();
+
+}
+
+function addEventListenersToButtons(){
+	document.querySelectorAll("#filtrering button").forEach(elm =>{
+		elm.addEventListener("click", filtrering);
+	})
+
+};
+
+function filtrering(){
+	filterProdukt = this.dataset.produkt;
+
+	visProdukter();
+
+}
+
+function visProdukter(){
+	let temp = document.querySelector("template");
+	let container = document.querySelector ("#container")
+	container.innterHTML = "";
+	produkter.forEach(produkt => {
+		if (filterProdukt == "alle" || produkt.categories.includes(parseInt(filterprodukt))) {
+			let klon = temp.cloneNode(true).content;
+			klon.querySelector (".title").textContent = produkt.title.rendered;
+			klon.querySelector ("img").src = produkt.billede.guid;
+			klon.querySelector (".beskrivelse").innerHTML = produkt.beskrivelse;
+			klon.querySelector (".pris").innerHTML = produkt.pris;
+			klon.querySelector ("article").addEventListener("click", ()=> {location.href = produkt.link; })
+			container.appendChild(klon);
 
 
-			function filtrering() {
-				filterVare = this.dataset.vare;
-				// document.querySelector(".selected").classList.remove("selected");
-     			// this.classList.add("selected");
-				// document.querySelector("select").value = "alle";
-				visVarer();
-				console.log(filterVare, "filtrering");
-			}
+	}
+})
+}
 
-			// function addEventListenerToSelector() {
-			// 	select.addEventListener("click", filtreringSelect)
-			// }
-
-			// function filtreringSelect() {
-			// 	filterVare = select.options[select.selectedIndex].value;
-			// 	document.querySelector(".selected").classList.remove("selected");
-			// 	document.querySelector("#filter button:first-of-type").classList.add("selected");
-			// 	visVarer();
-			// }
-
-			function visVarer() {
-				let container = document.querySelector("#container");
-     			let temp = document.querySelector("template");
-
-				 //tøm visning: 
-				container.innerHTML = ""; 
-
-				varer.forEach(vare => {
-					if (filterVare == "alle" || vare.categories.includes(parseInt(filterVare))) {
-						console.log(vare.categories, "visVarer");
-						let klon = temp.cloneNode(true).content;
-						klon.querySelector("img").src = vare.billede.guid;
-						klon.querySelector(".title").textContent = vare.overskrift;
-						klon.querySelector(".pris").textContent = vare.pris;
-
-						// if (vare.categories.includes(9)) {
-						// 	klon.querySelector(".info").classList.add("Glas");
-						// } else if (vare.categories.includes(6)) {
-						// 	klon.querySelector(".info").classList.add("Lamper");
-						// } else if (vare.categories.includes(7)) {
-						// 	klon.querySelector(".info").classList.add("Møbler");
-						// } else if (vare.categories.includes(8)) {
-						// 	klon.querySelector(".info").classList.add("Opbevaring");
-						// }
-						
-						
-						//Beskrivelse:
-						// klon.querySelector(".desc").textContent = vare.beskrivelse;
-
-						klon.querySelector("article").addEventListener("click", () => {
-							location.href = vare.link;
-						})
-						container.appendChild(klon);
-					}
-				})
-			}
-			getJson();
+getJson();
 			
 
 
 		</script>
-	</div><!-- #primary -->
-
+</section>
 <?php
 get_footer();
