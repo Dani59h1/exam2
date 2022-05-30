@@ -107,24 +107,26 @@ get_header();
 
 <section id ="primary" class="content-area">
 	<main id ="main" class="site-main">
-		<nav id="filtrering"><button data-produkt="alle">Alle</button>
+		<nav id="filtrering">
+		<button data-produkt="alle" class="selected">Alle</button>
 		<button data-projekt="9">Glas</button>
 			<button data-projekt="6">Lamper</button>
 			<button data-projekt="7">Møbler</button>
 			<button data-projekt="8">Opbevaring</button>
-		
-		<section id="produktcontainer">
 			</nav>
 			<section id="container"></section>
+		
+
 </section>
 </main>
 
 <script>
 let produkter;
-			let categories;
-			let filterProdukt = "alle";
+let categories;
+let filterProdukt = "alle";
+const select = document.querySelector("#filtrering");
 
-			const dbUrl = "https://nicknadeemkaastrup.dk/kea/2_semester_eksamen/wordpress/wp-json/wp/v2/vare?per_page=100";
+			const dbUrl = "https://nicknadeemkaastrup.dk/kea/2_semester_eksamen/wordpress/wp-json/wp/v2/produkt?per_page=100";
 			const catUrl = "https://nicknadeemkaastrup.dk/kea/2_semester_eksamen/wordpress/wp-json/wp/v2/categories";
 
 async function getJson (){
@@ -133,17 +135,17 @@ async function getJson (){
 	produkter = await data.json();
 	categories = await catdata.json();
 	visProdukter();
-	opretknapper();
-}
-
-function opretknapper (){
-	categories.forEach(cat =>{
-		document.querySelector("#filtrering").innerHTML += '<button class="filter" data-produkt="${cat.id}">${cat.name}</button>'
-	})
-
+	//opretknapper();
+	addEventListenerToSelector();
 	addEventListenersToButtons();
-
 }
+
+//function opretknapper (){
+//	categories.forEach(cat =>{
+//	document.querySelector("#filtrering").innerHTML += '<button class="filtrering" data-produkt="${cat.id}">${cat.name}</button>'
+//	})
+//}
+
 
 function addEventListenersToButtons(){
 	document.querySelectorAll("#filtrering button").forEach(elm =>{
@@ -152,24 +154,47 @@ function addEventListenersToButtons(){
 
 };
 
+function addEventListenerToSelector() {
+				select.addEventListener("click", filtreringSelect)
+			}
+
 function filtrering(){
 	filterProdukt = this.dataset.produkt;
+	console.log (filterProdukt);
 
 	visProdukter();
 
 }
 
+function filtreringButtons() {
+				filterProdukt = select.options[select.selectedIndex].value;
+				document.querySelector(".selected").classList.remove("selected");
+				document.querySelector("#filtrering button:first-of-type").classList.add("selected");
+				visProdukter();
+}
+
 function visProdukter(){
 	let temp = document.querySelector("template");
 	let container = document.querySelector ("#container")
-	container.innterHTML = "";
+	container.innerHTML = "";
 	produkter.forEach(produkt => {
-		if (filterProdukt == "alle" || produkt.categories.includes(parseInt(filterprodukt))) {
+		if (filterProdukt == "alle" || produkt.categories.includes(parseInt(filterProdukt))) {
 			let klon = temp.cloneNode(true).content;
 			klon.querySelector (".title").textContent = produkt.title.rendered;
 			klon.querySelector ("img").src = produkt.billede.guid;
-			klon.querySelector (".beskrivelse").innerHTML = produkt.beskrivelse;
-			klon.querySelector (".pris").innerHTML = produkt.pris;
+
+			if (produkt.categories.includes(9)) {
+				klon.querySelector(".tekst").classList.add("glas");
+			} else if (produkt.categories.includes(6)) {
+				klon.querySelector(".tekst").classList.add("lamper");
+			} else if (produkt.categories.includes(7)) {
+				klon.querySelector(".tekst").classList.add("moebler");
+			} else if (produkt.categories.includes(8)) {
+				klon.querySelector(".tekst").classList.add("opbevaring");
+			}
+	
+			klon.querySelector (".beskrivelse").textContent = produkt.beskrivelse;
+			klon.querySelector (".pris").textContent = produkt.pris;
 			klon.querySelector ("article").addEventListener("click", ()=> {location.href = produkt.link; })
 			container.appendChild(klon);
 
