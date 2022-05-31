@@ -108,12 +108,7 @@ get_header();
 <section id ="primary" class="content-area">
 	<main id ="main" class="site-main">
 		<nav id="filtrering">
-		<button data-produkt="alle" class="selected">Alle</button>
-		<button data-projekt="9">Glas</button>
-			<button data-projekt="6">Lamper</button>
-			<button data-projekt="7">Møbler</button>
-			<button data-projekt="8">Opbevaring</button>
-			</nav>
+		<button data-produkt="alle" class="selected">Alle</button>	</nav>
 			<section id="container"></section>
 		
 
@@ -135,16 +130,16 @@ async function getJson (){
 	produkter = await data.json();
 	categories = await catdata.json();
 	visProdukter();
-	//opretknapper();
-	addEventListenerToSelector();
+	opretknapper();
+	//addEventListenerToSelector();
 	addEventListenersToButtons();
 }
 
-//function opretknapper (){
-//	categories.forEach(cat =>{
-//	document.querySelector("#filtrering").innerHTML += '<button class="filtrering" data-produkt="${cat.id}">${cat.name}</button>'
-//	})
-//}
+function opretknapper (){
+	categories.forEach(cat =>{
+	document.querySelector("#filtrering").innerHTML += `<button class="filtrering" data-produkt="${cat.id}">${cat.name}</button>`
+	})
+}
 
 
 function addEventListenersToButtons(){
@@ -154,9 +149,9 @@ function addEventListenersToButtons(){
 
 };
 
-function addEventListenerToSelector() {
-				select.addEventListener("click", filtreringSelect)
-			}
+//function addEventListenerToSelector() {
+	//			select.addEventListener("click", filtrering)
+	//		}
 
 function filtrering(){
 	filterProdukt = this.dataset.produkt;
@@ -166,12 +161,12 @@ function filtrering(){
 
 }
 
-function filtreringButtons() {
-				filterProdukt = select.options[select.selectedIndex].value;
-				document.querySelector(".selected").classList.remove("selected");
-				document.querySelector("#filtrering button:first-of-type").classList.add("selected");
-				visProdukter();
-}
+//function filtreringButtons() {
+//				filterProdukt = select.options[select.selectedIndex].value;
+//				document.querySelector(".selected").classList.remove("selected");
+//				document.querySelector("#filtrering button:first-of-type").classList.add("selected");
+//				visProdukter();
+//}
 
 function visProdukter(){
 	let temp = document.querySelector("template");
@@ -180,34 +175,31 @@ function visProdukter(){
 	produkter.forEach(produkt => {
 		if (filterProdukt == "alle" || produkt.categories.includes(parseInt(filterProdukt))) {
 			let klon = temp.cloneNode(true).content;
-			klon.querySelector (".title").textContent = produkt.title.rendered;
-			klon.querySelector ("img").src = produkt.billede.guid;
+			klon.querySelector(".title").textContent = produkt.title.rendered;
+			klon.querySelector("img").src = produkt.billede.guid;
 
-			if (produkt.categories.includes(9)) {
-				klon.querySelector(".tekst").classList.add("glas");
-			} else if (produkt.categories.includes(6)) {
-				klon.querySelector(".tekst").classList.add("lamper");
-			} else if (produkt.categories.includes(7)) {
-				klon.querySelector(".tekst").classList.add("moebler");
-			} else if (produkt.categories.includes(8)) {
-				klon.querySelector(".tekst").classList.add("opbevaring");
-			}
+			//if (produkt.categories.includes(9)) {
+			//	klon.querySelector(".tekst").classList.add("glas");
+			//} else if (produkt.categories.includes(6)) {
+			//	klon.querySelector(".tekst").classList.add("lamper");
+			//} else if (produkt.categories.includes(7)) {
+			//	klon.querySelector(".tekst").classList.add("moebler");
+			//} else if (produkt.categories.includes(8)) {
+			//	klon.querySelector(".tekst").classList.add("opbevaring");
+			//}
 	
-			klon.querySelector (".beskrivelse").textContent = produkt.beskrivelse;
-			klon.querySelector (".pris").textContent = produkt.pris;
-			klon.querySelector ("article").addEventListener("click", ()=> {location.href = produkt.link; })
+			//klon.querySelector (".beskrivelse").textContent = produkt.beskrivelse;
+			klon.querySelector(".pris").textContent = produkt.pris;
+			klon.querySelector(".grid-menu").addEventListener("click", ()=> {location.href = produkt.link;})
 			container.appendChild(klon);
 
 
 	}
 })
 }
-
 getJson();
-			
-
-
-		</script>
+</script>				
 </section>
+
 <?php
 get_footer();

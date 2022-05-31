@@ -77,45 +77,38 @@ get_header();
 		}
 	</style> -->
 
-	<Section id="primary" class="content-area">
-
+	<section id="primary" class="content-area">
 		<main id="main" class="site-main">
+			
 			<article class="single">
-
 				<img class="img" src="" alt="" />
-
-
-
 					<div class="title">
 						<h1>Titel</h1>
 					</div>
-
 					<p class="beskrivelse"></p>
-
 					<p class="pris"> </p>
-
-
 			</article>
 		</main><!-- #main -->
 
 
 		<script>
 			let produkt;
-
-			const dbUrl = "https://nicknadeemkaastrup.dk/kea/2_semester_eksamen/wordpress/wp-json/wp/v2/vare"+<?php echo get_the_ID() ?>;
-
+			const url = "https://nicknadeemkaastrup.dk/kea/2_semester_eksamen/wordpress/wp-json/wp/v2/produkt/"+<?php echo get_the_ID()?>;
+       
 			async function getJson() {
-				const data = await fetch(dbUrl);
-				produkt = await data.json();
-				// console.log(vare)
+				const jsonData = await fetch(url); 
+				/* const data = await fetch(dbUrl); */
+                produkt = await jsonData.json();
 				visProdukter();
 			}
 
 			function visProdukter() {
+			/* 	console.log("omg") */
 				document.querySelector(".img").src = produkt.billede.guid;
 				document.querySelector(".title h1").textContent = produkt.overskrift;
-				document.querySelector(".beskrivelse").innerHTML = produkt.beskrivelse;
-				document.querySelector(".pris").innerHTML = produkt.pris;
+				document.querySelector(".beskrivelse").textContent = produkt.beskrivelse;
+				document.querySelector(".pris").textContent = produkt.pris;
+				/* klon.querySelector ("article").addEventListener("click", ()=> {location.href = produkt.link; }) */
 
 				// document.querySelector(".beskrivelse").innerHTML = `<b>beskrivelse</b> ${vare.beskrivelse}`
 				// document.querySelector(".uddannelse").innerHTML = `<b>Uddannelsestrin</b> ${vare.uddannelsestrin}`
@@ -135,7 +128,7 @@ get_header();
 			}
 			getJson();
 		</script>
-	</Section><!-- #primary -->
+	</section><!-- #primary -->
 
 <?php
 get_footer();
