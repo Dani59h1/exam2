@@ -84,8 +84,6 @@ get_header();
 
 				<img class="img" src="" alt="" />
 
-
-
 					<div class="title">
 						<h1>Titel</h1>
 					</div>
