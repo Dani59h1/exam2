@@ -79,7 +79,7 @@ get_header();
 
 	<section id="primary" class="content-area">
 		<main id="main" class="site-main">
-			
+
 			<article class="single">
 				<img class="img" src="" alt="" />
 					<div class="title">
@@ -97,34 +97,18 @@ get_header();
        
 			async function getJson() {
 				const jsonData = await fetch(url); 
-				/* const data = await fetch(dbUrl); */
                 produkt = await jsonData.json();
 				visProdukter();
 			}
 
 			function visProdukter() {
-			/* 	console.log("omg") */
+				console.log("produkter") 
 				document.querySelector(".img").src = produkt.billede.guid;
 				document.querySelector(".title h1").textContent = produkt.overskrift;
 				document.querySelector(".beskrivelse").textContent = produkt.beskrivelse;
 				document.querySelector(".pris").textContent = produkt.pris;
-				/* klon.querySelector ("article").addEventListener("click", ()=> {location.href = produkt.link; }) */
+		
 
-				// document.querySelector(".beskrivelse").innerHTML = `<b>beskrivelse</b> ${vare.beskrivelse}`
-				// document.querySelector(".uddannelse").innerHTML = `<b>Uddannelsestrin</b> ${vare.uddannelsestrin}`
-				// document.querySelector(".skole").innerHTML = `<b>Skolenavn</b> ${vare.skolenavn}`
-				// document.querySelector(".kontakt").innerHTML = `<b>Kontakt</b> ${vare.kontakt}`
-			
-				// if (vare.categories.includes(6)) {
-				// 	document.querySelector(".devider").classList.add("globalt-medborgerskab");
-				// 	document.querySelector(".devider").textContent = "Globalt Medborgerskab"
-				// } else if (vare.categories.includes(5)) {
-				// 	document.querySelector(".devider").classList.add("baeredygtig-udvikling");
-				// 	document.querySelector(".devider").textContent = "Bæredygtig Udvikling"
-				// } else if (vare.categories.includes(24)) {
-				// 	document.querySelector(".devider").classList.add("unesco-verdensmalsskoler");
-				// 	document.querySelector(".devider").textContent = "UNESCO Verdensmålsskoler"
-				// }
 			}
 			getJson();
 		</script>

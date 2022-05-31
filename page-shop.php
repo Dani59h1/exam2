@@ -131,16 +131,15 @@ async function getJson (){
 	categories = await catdata.json();
 	visProdukter();
 	opretknapper();
-	//addEventListenerToSelector();
 	addEventListenersToButtons();
 }
 
+//Opretter knapper udover ALLE
 function opretknapper (){
 	categories.forEach(cat =>{
 	document.querySelector("#filtrering").innerHTML += `<button class="filtrering" data-produkt="${cat.id}">${cat.name}</button>`
 	})
 }
-
 
 function addEventListenersToButtons(){
 	document.querySelectorAll("#filtrering button").forEach(elm =>{
@@ -149,24 +148,12 @@ function addEventListenersToButtons(){
 
 };
 
-//function addEventListenerToSelector() {
-	//			select.addEventListener("click", filtrering)
-	//		}
-
 function filtrering(){
 	filterProdukt = this.dataset.produkt;
 	console.log (filterProdukt);
-
 	visProdukter();
 
 }
-
-//function filtreringButtons() {
-//				filterProdukt = select.options[select.selectedIndex].value;
-//				document.querySelector(".selected").classList.remove("selected");
-//				document.querySelector("#filtrering button:first-of-type").classList.add("selected");
-//				visProdukter();
-//}
 
 function visProdukter(){
 	let temp = document.querySelector("template");
@@ -177,19 +164,9 @@ function visProdukter(){
 			let klon = temp.cloneNode(true).content;
 			klon.querySelector(".title").textContent = produkt.title.rendered;
 			klon.querySelector("img").src = produkt.billede.guid;
-
-			//if (produkt.categories.includes(9)) {
-			//	klon.querySelector(".tekst").classList.add("glas");
-			//} else if (produkt.categories.includes(6)) {
-			//	klon.querySelector(".tekst").classList.add("lamper");
-			//} else if (produkt.categories.includes(7)) {
-			//	klon.querySelector(".tekst").classList.add("moebler");
-			//} else if (produkt.categories.includes(8)) {
-			//	klon.querySelector(".tekst").classList.add("opbevaring");
-			//}
 	
 			//klon.querySelector (".beskrivelse").textContent = produkt.beskrivelse;
-			klon.querySelector(".pris").textContent = produkt.pris;
+			klon.querySelector(".pris").textContent = produkt.pris + " kr";
 			klon.querySelector(".grid-menu").addEventListener("click", ()=> {location.href = produkt.link;})
 			container.appendChild(klon);
 
