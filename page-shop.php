@@ -114,6 +114,7 @@ const select = document.querySelector("#filtrering");
 			const catUrl = "https://nicknadeemkaastrup.dk/kea/2_semester_eksamen/wordpress/wp-json/wp/v2/categories";
 
 async function getJson (){
+	console.log("array")
 	const data = await fetch(dbUrl);
 	const catdata = await fetch(catUrl);
 	produkter = await data.json();
@@ -147,14 +148,13 @@ function filtrering(){
 function visProdukter(){
 	let temp = document.querySelector("template");
 	let container = document.querySelector ("#container")
+	console.log("produkter")
 	container.innerHTML = "";
 	produkter.forEach(produkt => {
 		if (filterProdukt == "alle" || produkt.categories.includes(parseInt(filterProdukt))) {
 			let klon = temp.cloneNode(true).content;
 			klon.querySelector(".title").textContent = produkt.title.rendered;
 			klon.querySelector("img").src = produkt.billede.guid;
-	
-			//klon.querySelector (".beskrivelse").textContent = produkt.beskrivelse;
 			klon.querySelector(".pris").textContent = produkt.pris + " kr";
 			klon.querySelector(".grid-menu").addEventListener("click", ()=> {location.href = produkt.link;})
 			container.appendChild(klon);
