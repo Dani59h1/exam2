@@ -6,6 +6,8 @@
 get_header();
 ?>
 
+
+
 <template>
 	<article class="grid-menu">
       	<img src="" alt="" />
@@ -20,93 +22,80 @@ get_header();
 </template>
 
 <style>
-	/* #content {
-		background: #dee5c8;
-	}
-
-	h2::before {
-		display: none;
-	}
-
-	
-
-    article {
-      cursor: pointer;
-	  background: white;
-	  display: flex;
-	  flex-direction: column;
-	  border-radius: 10px;
-    }
-
-    .grid-menu img {
-      width: 100%;
-	  height: 100%;
-      border-radius: 10px 10px 0 0;
-      object-fit: cover;
-      aspect-ratio: 8/5;
-    }
-
-    .info {
-      padding: 1rem;
-	  background: grey;
-	  border-radius: 0 0 10px 10px;
-    }
-
-	.info h3, .info p {
-		color: white;
-	}
-
-	.globalt-medborgerskab {
-		background: #C2202F;
-	}
-
-	.baeredygtig-udvikling {
-		background: #4AA047;
-	}
-
-	.unesco-verdensmalsskoler {
-		background: #186B9D;
-	}
-
-	p.desc {
-		margin: 0;
-	}
-
-	#filter {
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: row;
-		gap: 1rem;
-		margin: 1rem 0;
-	}
-	
-	.ast-container {
-		max-width: 1500px;
-	}
-
-	.selected, .selected:hover, .selected:focus {
-		background: #315743;
-		color: white;
-	}
-
-	 */
 
 	 #container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      gap: 1rem;
+      gap: 2rem;
+	  margin-inline: 5rem;
     }
+
+	h1 {
+		font-size: 4rem;
+	}
 	
 	 @media (max-width: 921px) {
 	  #container {
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	  margin-inline: 0;
+	  padding-inline: 1rem;
       }
 	}
+
+	h1, h2 {
+		margin: 0;
+		text-align: center;
+	}
+
+	h1 {
+		margin-bottom: 1rem;
+		font-size: 3rem:
+	}
+
+	.centrermigskat {
+		max-width: 700px;
+		margin: 0 auto;	
+		padding-inline: 1rem;
+	}
+
+	.grid-menu img {
+	}
+
+	.selected {
+	}
+
+	@media (max-width: 770px) {
+
+	
+
+	.filtrering, .selected {
+  background-color: #ffe5e9; 
+  border: 2px solid #997fa3;
+  color: #1f5373; 
+  padding: 10px 24px; /* Some padding */
+  margin-bottom: 0.5rem;
+  cursor: pointer; /* Pointer/hand icon */
+  width: 100%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+	}
+
+
+.filtrering:hover, .selected:hover {
+}
+
+}
 
 </style>
 
 <section id ="primary" class="content-area">
 	<main id ="main" class="site-main">
+
+	<h1>SHOP</h1>
+	<h2>NYT INTERIØR</h2>
+	<div class="centrermigskat">
+	<p>Her kan du finde en unik og bred produktpalette. Alt fra glas og kopper til vægdekorationer. Produkterne er håndplukket med samme omhu og sans for detalje, som butikkens vintage afdeling.</p>
+	</div>
+
 		<nav id="filtrering">
 		<button data-produkt="alle" class="selected">Alle</button>	</nav>
 			<section id="container"></section>
