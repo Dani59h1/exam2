@@ -6,6 +6,34 @@ Description: Twenty Nineteen Child Theme
 Author: Danny V
 */
 
-.site-info {
-	display:none;
+@font-face {
+	font-family: overskriften;
+	src: url(DK_Majolica.woff) format("woff");
+}
+
+h1 {
+	font-family: overskriften;
+	font-size: 5rem;
+}
+
+/* ______ */
+
+@font-face {
+	font-family: underoverskriften;
+	src: url(britannic-bold.woff2) format("woff2");
+}
+
+h2, h3 {
+	font-family: underoverskriften;
+}
+
+/* _______ */
+
+@font-face {
+	font-family: broed;
+	src: url(NunitoSans-Regular.woff2) format("woff2");
+}
+
+p {
+	font-family: broed;
 }
