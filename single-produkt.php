@@ -30,7 +30,6 @@ get_header();
 		}
 
 		.pecture .img {
-			/* margin: 0 auto; */
 			border-style: solid;
   			border-width: 10px;
 			  /*Gradient rundt om billedet*/
@@ -178,13 +177,13 @@ get_header();
 				// Henter og viser udfyldt produktinformation på siden: 
 				document.querySelector(".img").src = produkt.billede.guid;
 				document.querySelector("h1").textContent = produkt.overskrift;
-				document.querySelector("h2").textContent = produkt.overskrift;
 				document.querySelector(".beskrivelse").textContent = produkt.beskrivelse;
 				document.querySelector(".itemm .pris").textContent = produkt.pris + " kr";
 				document.querySelector(".mal").textContent = "MÅL: " + produkt.mal;
 				document.querySelector(".farve").textContent = "FARVE: " + produkt.farve;
 				document.querySelector(".materiale").textContent = "MATERIALE: " + produkt.materiale;
 
+				//Kategorierne vises i single view under overskriften ved at læse kategoriernes ID nummer
 				 if (produkt.categories.includes(9)) {
 					document.querySelector("h2").textContent = "GLAS"
 				} else if (produkt.categories.includes(6)) {
